@@ -102,6 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+<<<<<<< HEAD
 
 # IDE
 .idea/
+=======
+>>>>>>> 1abf91da8eb365288a791fe1e42fa00d399e8def
