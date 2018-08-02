@@ -5,6 +5,7 @@ api = Blueprint('api', __name__)
 
 from todo.api_1_0 import todo
 from todo.api_1_0 import auth
+# from todo.api_1_0 import views
 from todo import jwt
 
 
@@ -20,4 +21,11 @@ def after_reqeust(response):
 def expired_token_loader():
     return jsonify(dict(
         message='The token has expired'
+    )), 401
+
+
+@api.errorhandler(401)
+def AuthError(code):
+    return jsonify(dict(
+        message='Request Invalid authorization credentials'
     )), 401

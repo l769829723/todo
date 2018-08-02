@@ -1,3 +1,4 @@
+from flask import jsonify
 from flask_restful import Resource
 from flask_restful import reqparse
 from flask_restful import fields
@@ -5,7 +6,7 @@ from flask_restful import marshal
 from flask_restful import abort
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, fresh_jwt_required
 
-from todo import api
+from todo.api_1_0 import api
 from todo.models import User
 
 
@@ -32,24 +33,24 @@ class Login(Resource):
         args = parser.parse_args()
         user = User.query.filter_by(email=args.get('username')).first()
         if user and user.verify_password(args.get('password')):
-            return marshal(
+            return jsonify(marshal(
                 dict(token=create_access_token(user.id)),
                 token_fields
-            )
-        abort(401, message='Request Invalid authorization credentials')
+            ))
+        abort(401)
 
 
-api.add_resource(Login, '/login/')
+api.add_url_rule('/login/', view_func=Login.as_view('login'))
 
 
 class Verify(Resource):
     method_decorators = [jwt_required]
 
     def get(self):
-        return {'token': 'invalid'}, 200
+        return jsonify({'token': 'invalid'}), 200
 
 
-api.add_resource(Verify, '/login/verify/')
+api.add_url_rule('/login/verify/', view_func=Verify.as_view('verify'))
 
 
 class UserInfo(Resource):
@@ -85,7 +86,10 @@ class UserInfo(Resource):
 
     def get(self):
         current_user = self.get_object()
-        return marshal(current_user, self.user_field), 200
+        return jsonify(dict(
+            username=current_user.username,
+            email=current_user.email
+        )), 200
 
     def post(self):
         args = self.parser.parse_args()
@@ -98,8 +102,10 @@ class UserInfo(Resource):
             current_user.username = username
             current_user.set_password(password)
             current_user.save()
-            return {'message': 'Your profile has updated.'}
-        return {'message': 'Identity invalid, please check your profile.'}, 401
+            return jsonify({'message': 'Your profile has updated.'})
+        return jsonify(
+            {'message': 'Identity invalid, please check your profile.'}
+        ), 401
 
     def get_object(self):
         current_user = get_jwt_identity()
@@ -107,4 +113,4 @@ class UserInfo(Resource):
         return user
 
 
-api.add_resource(UserInfo, '/login/me/')
+api.add_url_rule('/login/me/', view_func=UserInfo.as_view('user_info'))

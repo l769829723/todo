@@ -1,11 +1,11 @@
-from flask import current_app
+from flask import current_app, jsonify
 
 from flask_restful import Resource, fields, marshal_with, marshal
 from flask_restful import reqparse
 from flask_restful import abort
 from flask_jwt_extended import jwt_required
 
-from todo import api
+from todo.api_1_0 import api
 from todo.models import Todo
 
 
@@ -72,9 +72,8 @@ class ToDoList(Resource, ToDoMixin):
             ),
             todos=pagination.items
         )
-        return marshal(todos_data, todos_fields)
+        return jsonify(marshal(todos_data, todos_fields))
 
-    @marshal_with(ToDoMixin.fields)
     def post(self):
         todo = Todo()
         args = parser.parse_args()
@@ -82,7 +81,7 @@ class ToDoList(Resource, ToDoMixin):
         todo.is_done = args.get('is_done')
         todo.is_important = args.get('is_important')
         todo.save()
-        return todo, 201
+        return jsonify(marshal(todo, self.fields)), 201
 
 
 class ToDo(Resource, ToDoMixin):
@@ -91,9 +90,8 @@ class ToDo(Resource, ToDoMixin):
 
     @marshal_with(ToDoMixin.fields)
     def get(self, todo_id):
-        return self.get_object_or_404(todo_id)
+        return jsonify(self.get_object_or_404(todo_id))
 
-    @marshal_with(ToDoMixin.fields)
     def put(self, todo_id):
         todo = self.get_object_or_404(todo_id)
         args = parser.parse_args()
@@ -101,16 +99,16 @@ class ToDo(Resource, ToDoMixin):
         todo.is_done = args.get('is_done')
         todo.is_important = args.get('is_important')
         todo.save()
-        return todo
+        return jsonify(marshal(todo, self.fields))
 
     def delete(self, todo_id):
         todo = self.get_object_or_404(todo_id)
         todo.delete()
-        return {'message': 'Task {} has been deleted.'.format(todo_id)}, 201
+        return jsonify({'message': 'Task {} has been deleted.'.format(todo_id)}), 201
 
 
-api.add_resource(ToDoList, '/todos/')
-api.add_resource(ToDo, '/todos/<int:todo_id>/')
+api.add_url_rule('/todos/', view_func=ToDoList.as_view('todolist'))
+api.add_url_rule('/todos/<int:todo_id>/', view_func=ToDo.as_view('todo'))
 
 
 # def format_request_datetime(value, name):

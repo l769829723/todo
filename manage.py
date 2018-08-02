@@ -7,16 +7,14 @@ from flask_migrate import (
 
 from todo import db
 from todo import create_app
-from settings import ENV
 
 from todo.models import User
 from todo.models import Todo
 from todo.models import CreateAdmin
 
 # Config APP
-config = os.environ.get('PROJECT_ENV') or 'PRO'
-# config = 'DEV'
-app = create_app(ENV.get(config.strip().replace('\'', '').replace('"', '')))
+config = os.environ.get('PROJECT_ENV', default='PRO')
+app = create_app(config)
 
 # Migration DB
 migrate = Migrate(app, db)
@@ -31,6 +29,14 @@ def make_shell_context():
 
 manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('createadmin', CreateAdmin())
+
+
+@manager.command
+def test():
+    """ Running test suite case """
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,13 @@
+import pymysql
+
 from flask import Flask
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
+
+from settings import ENV
+
+pymysql.install_as_MySQLdb()
 
 api = Api()
 db = SQLAlchemy()
@@ -10,7 +16,11 @@ jwt = JWTManager()
 
 def create_app(config):
     app = Flask(__name__)
-    app.config.from_object(config)
+    app.config.from_object(
+        ENV.get(
+            config.strip().replace('\'', '').replace('"', '')
+        )
+    )
     db.init_app(app)
     jwt.init_app(app)
 
