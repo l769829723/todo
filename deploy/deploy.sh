@@ -7,6 +7,6 @@ EOF
 
 # Execute deploy
 # ansible-playbook deploy.yaml
-ansible localhost -m ping
+ansible localhost -i ./deploy/hosts -m ping
 
 # Done
