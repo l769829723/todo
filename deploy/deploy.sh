@@ -17,6 +17,6 @@ app_server ansible_host=${SERVER_ADDRESS} ansible_ssh_pass=${SERVER_PASSWORD} an
 EOF
 
 # Execute deploy
-ansible-playbook -i /tmp/hosts --user=${SERVER_USERNAME} ./deploy/deploy.yaml
+ansible-playbook -i /tmp/hosts --user=${SERVER_USERNAME} ./deploy/deploy.yaml -vvvv
 
 # Done
