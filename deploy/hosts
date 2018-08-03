@@ -1,0 +1,2 @@
+[servers]
+app_server ansible_host=45.77.125.156 ansible_ssh_pass=#H4q49KVCk{q(Mhz ansible_user=root

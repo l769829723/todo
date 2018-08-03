@@ -61,6 +61,8 @@ jobs:
     steps:
       - checkout
       - run:
+          environment:
+            ANSIBLE_CONFIG: ./deploy/ansible.cfg
           name: run deploy
           command: |
             sh ./deploy/deploy.sh
