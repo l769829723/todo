@@ -62,7 +62,7 @@ jobs:
       - checkout
       - run:
           name: run deploy
-          command: ls -l `whereis python`
+          command: which python
             # sh ./deploy/deploy.sh
 
 workflows:
