@@ -5,10 +5,10 @@ SERVER_USERNAME='root'
 SERVER_PASSWORD='#H4q49KVCk{q(Mhz'
 SERVER_ADDRESS='45.77.125.156'
 
-# Pre-setting
+# Pre-settings
 export ANSIBLE_CONFIG=deploy/ansible.cfg
-export ANSIBLE_HOST_KEY_CHECKING = False
-export ANSIBLE_RECORD_HOST_KEYS = False
+export ANSIBLE_HOST_KEY_CHECKING=False
+export ANSIBLE_RECORD_HOST_KEYS=False
 
 # Render hosts file
 cat >/tmp/hosts<<EOF
