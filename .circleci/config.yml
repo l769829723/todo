@@ -62,7 +62,7 @@ jobs:
       - checkout
       - run:
           name: run deploy
-          command: python --version && ansible --version
+          command: ls -l `whereis python`
             # sh ./deploy/deploy.sh
 
 workflows:
