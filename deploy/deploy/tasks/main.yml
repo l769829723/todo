@@ -8,4 +8,4 @@
   pip:
     requirements: /app/requirements.txt
     virtualenv: /app/venv
-    virtualenv_python: python3.6
+    virtualenv_command: /usr/bin/python3.6 -m venv
