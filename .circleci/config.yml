@@ -69,7 +69,7 @@ jobs:
             sudo pip install ansible
       - run:
           name: run deploy
-          command: ssh root@45.77.125.156 'echo hi'
+          command: ssh -o "StrictHostKeyChecking no" root@45.77.125.156 'echo hi'
 
 workflows:
   version: 2
