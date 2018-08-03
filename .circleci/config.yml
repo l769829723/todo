@@ -62,7 +62,7 @@ jobs:
       - checkout
       - run:
           name: run deploy
-          command: ansible --version
+          command: cat deploy/hosts
 
 workflows:
   version: 2
