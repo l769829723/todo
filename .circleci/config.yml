@@ -56,7 +56,7 @@ jobs:
 
   deploy:
     docker:
-      - image: ansible/ubuntu14.04-ansible:stable
+      - image: ansible/centos7-ansible:stable
     working_directory: ~/repo
     steps:
       - checkout
