@@ -56,14 +56,10 @@ jobs:
 
   deploy:
     docker:
-      - image: ansible/ansible:ubuntu1604
+      - image: ansible/ansible
     working_directory: ~/repo
     steps:
       - checkout
-      - run:
-          name: install tool
-          command: |
-            pip install --upgrade pip && pip install ansible
       - run:
           name: run deploy
           command: |
