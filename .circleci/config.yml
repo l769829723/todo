@@ -68,7 +68,7 @@ jobs:
             sudo touch /root/.ssh/know_hosts
       - run:
           name: run deploy
-          command: sudo ls /root/.ssh/
+          command: sudo sh deploy/deploy.sh
 
 workflows:
   version: 2
