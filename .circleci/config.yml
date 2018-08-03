@@ -60,15 +60,16 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "4c:68:4e:d8:12:7a:d3:66:0e:3c:a6:68:98:df:a0:8a"
       - run:
           name: install deploy tool
           command: |
             sudo pip install ansible
-            sudo mkdir -p /root/.ssh
-            sudo touch /root/.ssh/know_hosts
       - run:
           name: run deploy
-          command: sudo sh deploy/deploy.sh
+          command: ssh root@45.77.125.156 'echo hi'
 
 workflows:
   version: 2
