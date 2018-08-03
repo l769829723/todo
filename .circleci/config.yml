@@ -62,8 +62,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: run deploy
+          name: install deploy tool
           command: sudo pip install ansible
+      - run:
+          name: run deploy
+          command: sh deploy/deploy.sh
 
 workflows:
   version: 2
