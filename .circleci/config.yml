@@ -62,7 +62,10 @@ jobs:
       - checkout
       - run:
           name: install deploy tool
-          command: sudo pip install ansible
+          command: |
+            sudo pip install ansible
+            sudo mkdir -p /root/.ssh
+            sudo touch /root/.ssh/know_hosts
       - run:
           name: run deploy
           command: sudo ls /root/.ssh/
