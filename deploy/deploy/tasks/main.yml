@@ -8,3 +8,4 @@
   pip:
     requirements: /app/requirements.txt
     virtualenv: /app/venv
+    virtualenv_python: python3
