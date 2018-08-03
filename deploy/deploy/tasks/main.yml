@@ -6,7 +6,6 @@
 
 - name: Install pip requirements
   pip:
-    executable: python -m pip
     requirements: /app/requirements.txt
     virtualenv: /app/venv
     virtualenv_command: python -m venv
