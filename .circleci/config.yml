@@ -63,7 +63,7 @@ jobs:
       - checkout
       - run:
           name: run deploy
-          command: pip install ansible
+          command: sudo pip install ansible
 
 workflows:
   version: 2
