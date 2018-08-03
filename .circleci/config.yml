@@ -56,14 +56,14 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/python:3.6.1
+      - image: ansible/ansible:ubuntu1604
     working_directory: ~/repo
     steps:
       - checkout
       - run:
           name: install tool
           command: |
-            pip install ansible
+            pip install --upgrade pip && pip install ansible
       - run:
           name: run deploy
           command: |
