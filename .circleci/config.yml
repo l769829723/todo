@@ -62,8 +62,7 @@ jobs:
       - checkout
       - run:
           name: run deploy
-          command: |
-            ansible --version
+          command: ansible --version
 
 workflows:
   version: 2
