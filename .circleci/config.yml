@@ -65,7 +65,7 @@ jobs:
           command: sudo pip install ansible
       - run:
           name: run deploy
-          command: ls -l /usr/bin/python
+          command: sudo sh deploy/deploy.sh
 
 workflows:
   version: 2
