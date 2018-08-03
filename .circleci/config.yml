@@ -62,11 +62,11 @@ jobs:
       - checkout
       - run:
           name: run deploy
-          command: cat deploy/hosts
+          command: echo ${SERVER_ADDRESS} ${SERVER_PASSWORD} ${SERVER_USERNAME}
 
 workflows:
   version: 2
-  test_and_deploy:
+  build_and_deploy:
     jobs:
       - build
       - deploy
