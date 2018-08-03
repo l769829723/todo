@@ -56,14 +56,14 @@ jobs:
 
   deploy:
     docker:
-      - image: ansible/centos7-ansible
+      # - image: ansible/centos7-ansible
+      - image: circleci/python:3.6.1
     working_directory: ~/repo
     steps:
       - checkout
       - run:
           name: run deploy
-          command: which python
-            # sh ./deploy/deploy.sh
+          command: pip install ansible
 
 workflows:
   version: 2
