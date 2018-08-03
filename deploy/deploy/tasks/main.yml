@@ -1,3 +1,13 @@
-#---
-#- name: Ensure database exists
-#
+---
+- name: Download APP source code
+  git:
+    repo: 'https://github.com/l769829723/todo.git'
+    dest: /app
+
+- name: Install pip requirements
+  pip:
+    executable: python -m pip
+    requirements: /app/requirements.txt
+    virtualenv: /app/venv
+    virtualenv_command: python -m venv
+
