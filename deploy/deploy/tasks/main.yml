@@ -8,5 +8,3 @@
   pip:
     requirements: /app/requirements.txt
     virtualenv: /app/venv
-    virtualenv_command: python -m venv
-
