@@ -62,7 +62,8 @@ jobs:
       - checkout
       - run:
           name: run deploy
-          command: echo ${SERVER_ADDRESS} ${SERVER_PASSWORD} ${SERVER_USERNAME}
+          command: |
+            sh ./deploy/deploy.sh
 
 workflows:
   version: 2
