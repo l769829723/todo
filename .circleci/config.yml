@@ -63,7 +63,7 @@ jobs:
       - run:
           name: run deploy
           command: |
-            sh ./deploy/deploy.sh
+            ansible --version
 
 workflows:
   version: 2
