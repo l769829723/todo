@@ -5,6 +5,6 @@
     state: present
   with_items:
     - python3-venv
-    - pymysql
+    - PyMySQL
   loop_control:
     loop_var: python_packages
