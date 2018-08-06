@@ -1,0 +1,5 @@
+---
+- name: Install python libs
+  apt:
+    name: python3-venv
+    state: present
