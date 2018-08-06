@@ -15,3 +15,9 @@
     name: todo
     state: present
     encoding: utf8
+
+- name: Init the application
+  command: source /app/venv/bin/activate.sh && python /app/manage.py db init && python /app/manage.py db upgrade && python /app/manage.py migrate
+
+- name: Running up the application service
+  command: nohup python /app/wsgi.py &;
