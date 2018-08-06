@@ -1,5 +1,10 @@
 ---
 - name: Install python libs
   apt:
-    name: python3-venv
+    name: "{{ python_packages }}"
     state: present
+  with_items:
+    - python3-venv
+    - pymysql
+  loop_control:
+    loop_var: python_packages
