@@ -9,3 +9,9 @@
     requirements: /app/requirements.txt
     virtualenv: /app/venv
     virtualenv_command: /usr/bin/python3.6 -m venv
+
+- name: Create database for application
+  mysql_db:
+    name: todo
+    state: present
+    encoding: utf8

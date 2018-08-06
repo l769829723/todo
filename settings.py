@@ -59,8 +59,8 @@ class Config(object):
 
 
 class ProductionConfig(Config):
-    EXCEPTION_EMAIL = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://user@localhost/foo'
+    # EXCEPTION_EMAIL = True
+    SQLALCHEMY_DATABASE_URI = 'mysql://root@localhost/todo'
 
 
 class DevelopmentConfig(Config):
