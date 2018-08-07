@@ -69,7 +69,7 @@ jobs:
       - run:
           name: run deploy
           command: |
-            scp -o "StrictHostKeyChecking no" deploy.sh ${SERVER_USERNAME}@${SERVER_ADDRESS}:/tmp/
+            scp -o "StrictHostKeyChecking no" ./deploy.sh ${SERVER_USERNAME}@${SERVER_ADDRESS}:/tmp/
             ssh -o "StrictHostKeyChecking no" ${SERVER_USERNAME}@${SERVER_ADDRESS} /tmp/deploy.sh
 
 workflows:
