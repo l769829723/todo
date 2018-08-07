@@ -63,8 +63,6 @@ jobs:
       - run:
           name: release application
           command: |
-            git add .
-            git commit -m 'auto release by CI'
             git push origin master:release
 
   deploy:
@@ -96,4 +94,4 @@ workflows:
             - build
       - deploy:
           requires:
-            - build
+            - release
