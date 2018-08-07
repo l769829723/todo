@@ -54,6 +54,17 @@ jobs:
           path: test-reports
           destination: test-reports
 
+  release:
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: release application
+          command: |
+            git add .
+            git commit -m 'auto release by CI'
+            git push origin
+
   deploy:
     docker:
       - image: circleci/python:3.6.1
