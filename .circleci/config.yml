@@ -55,6 +55,8 @@ jobs:
           destination: test-reports
 
   release:
+    docker:
+      - image: circleci/builder-base
     working_directory: ~/repo
     steps:
       - checkout
@@ -63,7 +65,7 @@ jobs:
           command: |
             git add .
             git commit -m 'auto release by CI'
-            git push origin
+            git push origin master:release
 
   deploy:
     docker:
@@ -82,13 +84,16 @@ jobs:
           environment:
             PROJECT_DIR: /var/www/todoapp
           command: |
-            ssh -o "StrictHostKeyChecking no" ${SERVER_USERNAME}@${SERVER_ADDRESS} "rm -rf /tmp/app && mv ${PROJECT_DIR}/app /tmp/ && git clone https://github.com/l769829723/todo.git ${PROJECT_DIR}/app && source ${PROJECT_DIR}/venv/bin/activate && cd ${PROJECT_DIR}/app/ && python manage.py db upgrade && python manage.py db migrate && systemctl restart todo.uwsgi && systemctl restart nginx"
+            ssh -o "StrictHostKeyChecking no" ${SERVER_USERNAME}@${SERVER_ADDRESS} "rm -rf /tmp/app && mv ${PROJECT_DIR}/app /tmp/ && git clone -b release https://github.com/l769829723/todo.git ${PROJECT_DIR}/app && source ${PROJECT_DIR}/venv/bin/activate && cd ${PROJECT_DIR}/app/ && python manage.py db upgrade && python manage.py db migrate && systemctl restart todo.uwsgi && systemctl restart nginx"
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
       - build
+      - release
+          requires:
+            - build
       - deploy:
           requires:
             - build
