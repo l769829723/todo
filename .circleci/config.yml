@@ -59,7 +59,6 @@ jobs:
       - image: circleci/python:3.6.1
     working_directory: ~/repo
     steps:
-      - checkout
       - add_ssh_keys:
           fingerprints:
             - "4c:68:4e:d8:12:7a:d3:66:0e:3c:a6:68:98:df:a0:8a"
@@ -70,8 +69,8 @@ jobs:
       - run:
           name: run deploy
           command: |
-            scp deploy.sh ${SERVER_USERNAME}@${SERVER_ADDRESS}:/tmp/
-            ssh ${SERVER_USERNAME}@${SERVER_ADDRESS} /tmp/deploy.sh
+            scp -o "StrictHostKeyChecking no" deploy.sh ${SERVER_USERNAME}@${SERVER_ADDRESS}:/tmp/
+            ssh -o "StrictHostKeyChecking no" ${SERVER_USERNAME}@${SERVER_ADDRESS} /tmp/deploy.sh
 
 workflows:
   version: 2
