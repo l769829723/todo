@@ -91,7 +91,7 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-      - release
+      - release:
           requires:
             - build
       - deploy:
