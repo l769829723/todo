@@ -71,12 +71,7 @@ jobs:
           environment:
             PROJECT_DIR: /var/www/todoapp
           command: |
-            ssh -o "StrictHostKeyChecking no" ${SERVER_USERNAME}@${SERVER_ADDRESS} "mv ${PROJECT_DIR}/app /tmp/ && git clone https://github.com/l769829723/todo.git ${PROJECT_DIR}/app && source ${ROOT}/venv/bin/activate && cd ${PROJECT_DIR}/app/ && python manage.py db upgrade && python manage.py db migrate && systemctl restart todo.uwsgi && systemctl restart nginx"
-
-      - run:
-          name: clear data
-          command: |
-            rm -rf /tmp/app
+            ssh -o "StrictHostKeyChecking no" ${SERVER_USERNAME}@${SERVER_ADDRESS} "rm -rf /tmp/app && mv ${PROJECT_DIR}/app /tmp/ && git clone https://github.com/l769829723/todo.git ${PROJECT_DIR}/app && source ${PROJECT_DIR}/venv/bin/activate && cd ${PROJECT_DIR}/app/ && python manage.py db upgrade && python manage.py db migrate && systemctl restart todo.uwsgi && systemctl restart nginx"
 
 workflows:
   version: 2
