@@ -60,7 +60,7 @@ class Config(object):
 
 class ProductionConfig(Config):
     # EXCEPTION_EMAIL = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://todoadmin:' + os.environ.get('PROJECT_DB_PASSWORD') + '@localhost/todo'
+    SQLALCHEMY_DATABASE_URI = 'mysql://todoadmin:' + os.environ.get('PROJECT_DB_PASSWORD', default='') + '@localhost/todo'
 
 
 class DevelopmentConfig(Config):
