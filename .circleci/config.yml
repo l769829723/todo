@@ -80,7 +80,7 @@ workflows:
       - build
       - deploy:
           requires:
-            - release
+            - build
           filters:
             branches:
               only: release
