@@ -1,7 +1,0 @@
----
-- hosts: app_server
-  roles:
-    - common
-    - nginx
-    - mysql
-    - deploy
