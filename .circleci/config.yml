@@ -54,17 +54,6 @@ jobs:
           path: test-reports
           destination: test-reports
 
-  release:
-    docker:
-      - image: circleci/python:3.6.1
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run:
-          name: release application
-          command: |
-            git push origin master:release
-
   deploy:
     docker:
       - image: circleci/python:3.6.1
@@ -89,9 +78,9 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-      - release:
-          requires:
-            - build
       - deploy:
           requires:
             - release
+          filters:
+            branches:
+              only: release
