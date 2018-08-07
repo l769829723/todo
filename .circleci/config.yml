@@ -68,9 +68,10 @@ jobs:
 #            sudo pip install ansible
       - run:
           name: run deploy
+          environment:
+            PROJECT_DIR: /var/www/todoapp
           command: |
-            scp -o "StrictHostKeyChecking no" ./deploy.sh ${SERVER_USERNAME}@${SERVER_ADDRESS}:/tmp/
-            ssh -o "StrictHostKeyChecking no" ${SERVER_USERNAME}@${SERVER_ADDRESS} /tmp/deploy.sh
+            ssh -o "StrictHostKeyChecking no" ${SERVER_USERNAME}@${SERVER_ADDRESS} 'mv ${PROJECT_DIR}/app /tmp/ && git clone https://github.com/l769829723/todo.git ${PROJECT_DIR}/app && source ${ROOT}/venv/bin/activate && cd ${PROJECT_DIR}/app/ && python manage.py db upgrade && python manage.py db migrate'
 
 workflows:
   version: 2
