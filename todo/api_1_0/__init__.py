@@ -1,11 +1,11 @@
 from flask import Blueprint
 from flask import jsonify
+from flask import current_app
 
 api = Blueprint('api', __name__)
 
 from todo.api_1_0 import todo
 from todo.api_1_0 import auth
-# from todo.api_1_0 import views
 from todo import jwt
 
 
@@ -13,7 +13,7 @@ from todo import jwt
 def after_reqeust(response):
     response.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, X-APP-Token'
-    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Origin'] = current_app.config['CORS']
     return response
 
 
@@ -24,8 +24,22 @@ def expired_token_loader():
     )), 401
 
 
-@api.errorhandler(401)
-def AuthError(code):
+@jwt.unauthorized_loader
+def unauthorized_loader(error):
     return jsonify(dict(
         message='Request Invalid authorization credentials'
     )), 401
+
+
+@api.errorhandler(401)
+def AuthError(error):
+    return jsonify(dict(
+        message='Request Invalid authorization credentials'
+    )), 401
+
+
+@api.app_errorhandler(404)
+def ResourceNotFound(error):
+    return jsonify(dict(
+        message='Sorry, you required resources not found.'
+    )), 404

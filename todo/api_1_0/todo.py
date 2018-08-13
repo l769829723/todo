@@ -9,10 +9,6 @@ from todo.api_1_0 import api
 from todo.models import Todo
 
 
-@api.route('/')
-def root():
-    return jsonify(message='Root API view.')
-
 parser = reqparse.RequestParser()
 parser.add_argument('name', type=str, location='json', required=True, help="Specified a todo name.")
 parser.add_argument('is_done', type=bool, location='json', required=True, help="Specified a todo is done flag.")

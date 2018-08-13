@@ -28,4 +28,9 @@ def create_app(config):
     api.init_app(api_1_0.api)
     app.register_blueprint(api_1_0.api, url_prefix='/api/v1')
 
+    from blog import blog as blog_bp
+    from blog import api_1_0 as blog_api_bp
+    app.register_blueprint(blog_bp, url_prefix='/')
+    app.register_blueprint(blog_api_bp.blog_api, url_prefix='/api/v1')
+
     return app

@@ -60,11 +60,15 @@ class Config(object):
 
 class ProductionConfig(Config):
     # EXCEPTION_EMAIL = True
+    # CORS
+    CORS = '*'
     SQLALCHEMY_DATABASE_URI = 'mysql://todoadmin:password@localhost/todo'
 
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    # CORS
+    CORS = 'http://localhost:8080'
     ACCESS_TOKEN_DURATION_SECONDS = 10
 
 

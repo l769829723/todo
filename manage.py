@@ -12,6 +12,9 @@ from todo.models import User
 from todo.models import Todo
 from todo.models import CreateAdmin
 
+from blog.models import Channel
+from blog.models import Post
+
 # Config APP
 config = os.environ.get('PROJECT_ENV', default='PRO')
 app = create_app(config)
@@ -24,7 +27,14 @@ manager.add_command('db', MigrateCommand)
 
 
 def make_shell_context():
-    return dict(app=app, db=db, User=User, Todo=Todo)
+    return dict(
+        app=app,
+        db=db,
+        User=User,
+        Todo=Todo,
+        Channel=Channel,
+        Post=Post
+    )
 
 
 manager.add_command('shell', Shell(make_context=make_shell_context))
