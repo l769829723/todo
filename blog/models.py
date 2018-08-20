@@ -18,7 +18,7 @@ class Post(db.Model, BaseModel):
     name = db.Column(db.String(128), unique=True, index=True)
     content = db.Column(db.Text)
     publish_time = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    update_time = db.Column(db.DateTime, default=None, nullable=True)
+    update_time = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 #
 # Data statistics
 # class DataStatistic(BaseModel):

@@ -16,11 +16,11 @@ jwt = JWTManager()
 
 def create_app(config):
     app = Flask(__name__)
-    app.config.from_object(
-        ENV.get(
-            config.strip().replace('\'', '').replace('"', '')
-        )
+    config = ENV.get(
+        config.strip().replace('\'', '').replace('"', '')
     )
+    app.config.from_object(config)
+    app.static_folder = config.STATIC_FOLDER
     db.init_app(app)
     jwt.init_app(app)
 
@@ -29,8 +29,6 @@ def create_app(config):
     app.register_blueprint(api_1_0.api, url_prefix='/api/v1')
 
     from blog import blog as blog_bp
-    from blog import api_1_0 as blog_api_bp
     app.register_blueprint(blog_bp, url_prefix='/')
-    app.register_blueprint(blog_api_bp.blog_api, url_prefix='/api/v1')
 
     return app

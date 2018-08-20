@@ -1,1 +1,62 @@
-<h1>OLLEH</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+index -
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<!-- define the post --->
+<div>
+  {% if posts %}
+  {% for post in posts %}
+  <div class="posts">
+    <h1 class="content-subhead">{{ post.channel }}</h1>
+    <!-- A single blog post -->
+    <section class="post card">
+      <header>
+        <div class="post-title">
+          <a href="{{ url_for('blog.post_detail', post_id=post.id) }}">
+            {{ post.name }}
+          </a>
+        </div>
+      </header>
+      <div class="post-description text-slice">
+        <p id="content" class="markdown-body">
+          {{ post.content }}
+        </p>
+      </div>
+    </section>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="posts">
+    <h1 class="content-subhead">None</h1>
+    <!-- A single blog post -->
+    <section class="post card">
+      <header>
+        <div class="post-title">
+          No more data available.
+        </div>
+      </header>
+      <div class="post-description text-slice">
+        <p class="markdown-body">
+          There is nothing post, maybe I forget add.
+        </p>
+      </div>
+    </section>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script>
+  var content = document.getElementsByClassName('markdown-body');
+  // content.innerHTML = marked(content.textContent);
+  for(var i=0; i<content.length; i++) {
+    content[i].innerHTML = marked(content[i].textContent);
+  }
+</script>
+{% endblock %}}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ post.name }} -
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="posts">
+  <h1 class="content-subhead">{{ post.channel }}</h1>
+  <!-- A single blog post -->
+  <section class="post">
+    <div class="post-title">
+      {{ post.name }}
+    </div>
+    <!--<p class="post-meta">-->
+    <!--By <a href="#" class="post-author">Tilo Mitra</a> under <a class="post-category post-category-design" href="#">CSS</a> <a class="post-category post-category-pure" href="#">Pure</a>-->
+    <!--</p>-->
+    </header>
+    <div class="post-description">
+      <p id="content" class="markdown-body">
+        {{ post.content }}
+      </p>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script>
+  var content = document.getElementById('content');
+  content.innerHTML = marked(content.textContent.trim());
+</script>
+{% endblock %}}

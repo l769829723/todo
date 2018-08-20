@@ -16,6 +16,8 @@ class Config(object):
     DEBUG = False
     TESTING = False
 
+    STATIC_FOLDER = os.path.dirname(ROOT) + '/static'
+
     # Database settings
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.dirname(ROOT) + '/db.sqlite3'
@@ -33,7 +35,7 @@ class Config(object):
     DATETIME_FORMAT_STRING = '%Y-%m-%d %H:%M:%S'
 
     # Pagination
-    COUNTS_OF_PER_PAGE = 10
+    COUNTS_OF_PER_PAGE = 16
 
     # JSON web token
     JWT_HEADER_NAME = 'X-APP-TOKEN'

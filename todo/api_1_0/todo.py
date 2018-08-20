@@ -28,7 +28,7 @@ class ToDoMixin:
     def get_object_or_404(self, id):
         todo = Todo.query.get(id)
         if todo is None:
-            abort(404, message="Task {} doesn\'t exist".format(id))
+            jsonify(message="Task {} doesn\'t exist".format(id)), 404
         else:
             return todo
 

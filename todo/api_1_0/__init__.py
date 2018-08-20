@@ -6,6 +6,7 @@ api = Blueprint('api', __name__)
 
 from todo.api_1_0 import todo
 from todo.api_1_0 import auth
+from todo.api_1_0 import posts
 from todo import jwt
 
 
@@ -32,14 +33,14 @@ def unauthorized_loader(error):
 
 
 @api.errorhandler(401)
-def AuthError(error):
+def auth_error(error):
     return jsonify(dict(
         message='Request Invalid authorization credentials'
     )), 401
 
 
 @api.app_errorhandler(404)
-def ResourceNotFound(error):
+def resource_not_found(error):
     return jsonify(dict(
         message='Sorry, you required resources not found.'
     )), 404

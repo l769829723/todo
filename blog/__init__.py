@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-blog = Blueprint('blog', __name__, template_folder='templates')
+blog = Blueprint('blog', __name__, template_folder='templates', static_folder='static')
 
 from blog import views
