@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from todo import db
 from todo.models import BaseModel
@@ -17,8 +17,8 @@ class Post(db.Model, BaseModel):
     channel = db.Column(db.ForeignKey(Channel.name))
     name = db.Column(db.String(128), unique=True, index=True)
     content = db.Column(db.Text)
-    publish_time = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    update_time = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    publish_time = db.Column(db.DateTime, default=datetime.utcnow)
+    update_time = db.Column(db.DateTime, default=datetime.utcnow)
 #
 # Data statistics
 # class DataStatistic(BaseModel):

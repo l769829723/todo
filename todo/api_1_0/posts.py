@@ -1,5 +1,5 @@
+from datetime import datetime
 from flask import jsonify
-from flask import abort
 from flask_restful import Resource
 from flask_restful import fields
 from flask_restful import marshal
@@ -54,15 +54,15 @@ api.add_url_rule('/channels/', view_func=Channels.as_view('channels'))
 
 
 class Posts(Resource):
-    method_decorators = [jwt_required]
+    # method_decorators = [jwt_required]
 
     post_fields = dict(
         id=fields.Integer,
         name=fields.String,
         channel=fields.String,
         content=fields.String,
-        publishTime=fields.DateTime,
-        updateTime=fields.DateTime
+        publish_time=fields.DateTime,
+        update_time=fields.DateTime
     )
 
     post_parser = reqparse.RequestParser()
@@ -96,6 +96,7 @@ class Posts(Resource):
         post_args = self.post_parser.parse_args()
         channel_name = post_args.get('channel')
         channel = Channel.query.filter_by(name=channel_name).first()
+        now = datetime.utcnow()
         if not channel:
             return jsonify(message='Please choose a channel for publishing.'), 404
         try:
@@ -103,6 +104,7 @@ class Posts(Resource):
             post.name = post_args.get('name')
             post.channel = channel.name
             post.content = post_args.get('content')
+            post.publish_time = now
             post.save()
         except IntegrityError:
             db.session.rollback()
