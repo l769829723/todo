@@ -38,6 +38,12 @@
         </a>
         <p class="post-meta">
           Posted at: {{ post.publish_time.strftime('%Y-%m-%d') }}
+          {% if post.tags %}
+          Tags: 
+          {% for tag in post.tags %}
+          <a class="post-category post-category-design" href="#">{{ tag }}</a>
+          {% endfor %}
+          {% endif %}
         </p>
       </div>
     </header>

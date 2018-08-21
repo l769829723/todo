@@ -18,6 +18,9 @@ class Tag(db.Model, BaseModel):
     name = db.Column(db.String(128), unique=True)
     posts = relationship("Post", back_populates="tags")
 
+    def __repr__(self):
+        return self.name
+
 
 class Post(db.Model, BaseModel):
     __tablename__ = 'blog_posts'

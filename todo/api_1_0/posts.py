@@ -57,11 +57,6 @@ api.add_url_rule('/channels/', view_func=Channels.as_view('channels'))
 class Posts(Resource):
     # method_decorators = [jwt_required]
 
-    tag_fields = dict(
-        id=fields.Integer,
-        name=fields.String
-    )
-
     post_fields = dict(
         id=fields.Integer,
         name=fields.String,
@@ -69,7 +64,7 @@ class Posts(Resource):
         content=fields.String,
         publish_time=fields.DateTime,
         update_time=fields.DateTime,
-        tags=fields.Nested(tag_fields)
+        tags=fields.List(fields.String)
     )
 
     post_parser = reqparse.RequestParser()
@@ -147,3 +142,12 @@ class PostDetail(Posts):
 
 api.add_url_rule('/posts/', view_func=Posts.as_view('posts'))
 api.add_url_rule('/posts/<int:post_id>/', view_func=PostDetail.as_view('posts_detail'))
+
+
+class TagsResource(Resource):
+
+    def get(self):
+        tags = [ tag.name for tag in Tag.query.all() ]
+        return jsonify(tags)
+
+api.add_url_rule('/tags/', view_func=TagsResource.as_view('tags'))
