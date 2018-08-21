@@ -23,7 +23,7 @@ Home -
           No more data available.
         </div>
       </header>
-      <div class="post-description">
+      <div class="post-description text-slice">
         <p class="markdown-body">
           There is nothing post, maybe I forget add.
         </p>
@@ -33,7 +33,7 @@ Home -
   {% endif %}
   <!-- pagination -->
   {% if pagination.pages > 1 %}
-    {{ macros.pagination_widget(pagination, 'blog.home') }}
+    {{ macros.pagination_widget(pagination, 'blog.channel', name=name) }}
   {% endif %}
 </div>
 {% endblock %}

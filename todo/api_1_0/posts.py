@@ -54,7 +54,7 @@ api.add_url_rule('/channels/', view_func=Channels.as_view('channels'))
 
 
 class Posts(Resource):
-    # method_decorators = [jwt_required]
+    method_decorators = [jwt_required]
 
     post_fields = dict(
         id=fields.Integer,

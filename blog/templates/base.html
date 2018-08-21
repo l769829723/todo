@@ -13,28 +13,6 @@
   <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
   <link href="https://cdn.bootcss.com/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/atom-one-light.css') }}" rel="stylesheet">
-  <style>
-    .markdown-body {
-      box-sizing: border-box;
-      min-width: 200px;
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 45px;
-    }
-
-    @media (max-width: 767px) {
-      .markdown-body {
-        padding: 15px;
-      }
-    }
-    .text-slice {
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  </style>
   {% endblock %}
 
   <!--[if lte IE 8]>
@@ -69,7 +47,7 @@
             <a href="{{ url_for('blog.home') }}">Home</a>
           </li>
           {% for channel in channels %}
-          <li class="nav-item">
+          <li {% if name == channel %} class="nav-item nav-item-active" {% else %} class="nav-item" {% endif %}>
             <a href="{{ url_for('blog.channel', name=channel.name) }}">{{ channel.name }}</a>
           </li>
           {% endfor %}
@@ -80,7 +58,6 @@
   <div class="content pure-u-1 pure-u-md-3-4">
     {% block content %}
     {% endblock %}
-    <hr>
     <div class="footer">
       <div class="pure-menu pure-menu-horizontal">
         <ul>
