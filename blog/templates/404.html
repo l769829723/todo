@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+404 -
+{{ super() }}
+{% endblock %}
+
+{% block body %}
+<div class="error">
+  <div class="error-title">404</div>
+  <div>PAGE NOT FOUND!</div>
+</div>
+<div style="width: 100%;text-align: center">
+  <a href="{{ url_for('blog.home') }}">返回首页</a>
+</div>
+{% endblock %}

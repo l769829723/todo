@@ -12,7 +12,7 @@ class Channel(db.Model, BaseModel):
 
 
 class Post(db.Model, BaseModel):
-    __tablename__ = 'posts'
+    __tablename__ = 'blog_posts'
     id = db.Column(db.Integer, primary_key=True)
     channel = db.Column(db.ForeignKey(Channel.name))
     name = db.Column(db.String(128), unique=True, index=True)

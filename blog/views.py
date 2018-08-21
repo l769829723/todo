@@ -20,5 +20,5 @@ def channel(name):
 
 @blog.route('/p/<int:post_id>/')
 def post_detail(post_id):
-    post = Post.query.filter_by(id=post_id).first()
+    post = Post.query.get_or_404(post_id)
     return render_template('detail.html', post=post)

@@ -1,4 +1,5 @@
 from flask import jsonify
+from flask import abort
 from flask_restful import Resource
 from flask_restful import fields
 from flask_restful import marshal
@@ -111,9 +112,7 @@ class Posts(Resource):
 
 class PostDetail(Posts):
     def get(self, post_id):
-        post = Post.query.get(post_id)
-        if not post:
-            return jsonify(message='Post not found.'), 404
+        post = Post.query.get_or_404(post_id)
         return jsonify(marshal(post, self.post_fields))
 
     def delete(self, post_id):

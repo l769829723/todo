@@ -13,7 +13,7 @@ index -
   <div class="posts">
     <h1 class="content-subhead">{{ post.channel }}</h1>
     <!-- A single blog post -->
-    <section class="post card">
+    <section class="post">
       <header>
         <div class="post-title">
           <a href="{{ url_for('blog.post_detail', post_id=post.id) }}">
@@ -31,9 +31,9 @@ index -
   {% endfor %}
   {% else %}
   <div class="posts">
-    <h1 class="content-subhead">None</h1>
+    <h4 class="content-subhead">None</h4>
     <!-- A single blog post -->
-    <section class="post card">
+    <section class="post">
       <header>
         <div class="post-title">
           No more data available.
@@ -56,7 +56,7 @@ index -
   var content = document.getElementsByClassName('markdown-body');
   // content.innerHTML = marked(content.textContent);
   for(var i=0; i<content.length; i++) {
-    content[i].innerHTML = marked(content[i].textContent);
+    content[i].innerHTML = marked(content[i].textContent.trim());
   }
 </script>
 {% endblock %}}
