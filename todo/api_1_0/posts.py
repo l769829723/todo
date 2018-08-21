@@ -11,6 +11,7 @@ from todo.api_1_0 import api
 
 from blog.models import Channel
 from blog.models import Post
+from blog.models import Tag
 
 
 class Channels(Resource):
@@ -54,7 +55,12 @@ api.add_url_rule('/channels/', view_func=Channels.as_view('channels'))
 
 
 class Posts(Resource):
-    method_decorators = [jwt_required]
+    # method_decorators = [jwt_required]
+
+    tag_fields = dict(
+        id=fields.Integer,
+        name=fields.String
+    )
 
     post_fields = dict(
         id=fields.Integer,
@@ -62,7 +68,8 @@ class Posts(Resource):
         channel=fields.String,
         content=fields.String,
         publish_time=fields.DateTime,
-        update_time=fields.DateTime
+        update_time=fields.DateTime,
+        tags=fields.Nested(tag_fields)
     )
 
     post_parser = reqparse.RequestParser()
@@ -87,6 +94,13 @@ class Posts(Resource):
         required=True,
         help='Please, specified a post content.'
     )
+    post_parser.add_argument(
+        'tags',
+        type=str,
+        action='append',
+        location='json',
+        help='Please, specified tags.'
+    )
 
     def get(self, *args):
         posts = Post.query.all()
@@ -97,6 +111,7 @@ class Posts(Resource):
         channel_name = post_args.get('channel')
         channel = Channel.query.filter_by(name=channel_name).first()
         now = datetime.utcnow()
+        tags = post_args.get('tags') or []
         if not channel:
             return jsonify(message='Please choose a channel for publishing.'), 404
         try:
@@ -106,6 +121,11 @@ class Posts(Resource):
             post.content = post_args.get('content')
             post.publish_time = now
             post.save()
+            for tag in tags:
+                t = Tag.query.filter_by(name=tag).first() or Tag()
+                t.post_id = post.id
+                t.name = tag
+                t.save()
         except IntegrityError:
             db.session.rollback()
             return jsonify(message='Post {} already exists.'.format(post_args.get('name'))), 409
