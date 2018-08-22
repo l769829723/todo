@@ -10,7 +10,7 @@ from blog.models import Channel
 def home():
     channels = Channel.query.all()
     page = request.args.get('page', 1, type=int)
-    pagination = Post.query.order_by(Post.update_time.desc()).paginate(
+    pagination = Post.query.order_by(Post.update_time.desc()).filter_by(is_published=True).paginate(
         page, per_page=current_app.config['COUNTS_OF_PER_PAGE'],
         error_out=False)
     posts = pagination.items
@@ -21,7 +21,7 @@ def home():
 def channel(name):
     channels = Channel.query.all()
     page = request.args.get('page', 1, type=int)
-    pagination = Post.query.filter_by(channel=name).order_by(Post.update_time.desc()).paginate(
+    pagination = Post.query.filter_by(channel=name).filter_by(is_published=True).order_by(Post.update_time.desc()).paginate(
         page, per_page=current_app.config['COUNTS_OF_PER_PAGE'],
         error_out=False)
     posts = pagination.items

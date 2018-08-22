@@ -31,6 +31,7 @@ class Post(db.Model, BaseModel):
     publish_time = db.Column(db.DateTime, default=datetime.utcnow)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
     tags = relationship("Tag", back_populates="posts")
+    is_published = db.Column(db.Boolean, default=False)
 #
 # Data statistics
 # class DataStatistic(BaseModel):

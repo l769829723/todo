@@ -64,7 +64,8 @@ class Posts(Resource):
         content=fields.String,
         publish_time=fields.DateTime,
         update_time=fields.DateTime,
-        tags=fields.List(fields.String)
+        tags=fields.List(fields.String),
+        is_published=fields.Boolean(default=False)
     )
 
     post_parser = reqparse.RequestParser()
