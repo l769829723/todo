@@ -140,6 +140,12 @@ class PostDetail(Posts):
         post.delete()
         return jsonify(message='Post deleted success.')
 
+    def patch(self, post_id):
+        post = Post.query.get_or_404(post_id)
+        post.is_published = not post.is_published
+        post.save()
+        return jsonify(is_published=post.is_published)
+
 
 api.add_url_rule('/posts/', view_func=Posts.as_view('posts'))
 api.add_url_rule('/posts/<int:post_id>/', view_func=PostDetail.as_view('posts_detail'))
@@ -148,7 +154,8 @@ api.add_url_rule('/posts/<int:post_id>/', view_func=PostDetail.as_view('posts_de
 class TagsResource(Resource):
 
     def get(self):
-        tags = [ tag.name for tag in Tag.query.all() ]
+        tags = [tag.name for tag in Tag.query.all()]
         return jsonify(tags)
+
 
 api.add_url_rule('/tags/', view_func=TagsResource.as_view('tags'))

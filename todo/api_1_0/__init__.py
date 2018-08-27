@@ -12,7 +12,7 @@ from todo import jwt
 
 @api.after_request
 def after_reqeust(response):
-    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,DELETE, PATCH'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, X-APP-Token'
     response.headers['Access-Control-Allow-Origin'] = current_app.config['CORS']
     return response
